@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica San Pedro - Gestión Médica</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>🏥 Clínica San Pedro</h1>
+        <p>Gestión Informalizada de Pacientes, Médicos e Ingresos</p>
+        <nav>
+            <ul>
+                <li><a href="#pacientes">Pacientes</a></li>
+                <li><a href="#medicos">Médicos</a></li>
+                <li><a href="#ingresos">Ingresos</a></li>
+                <li><a href="#citas">Citas de Seguimiento</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Pacientes -->
+        <section id="pacientes">
+            <h2>📝 Registrar Paciente</h2>
+            <form action="agregar_paciente.php" method="POST">
+                <label>Nombre: <input type="text" name="nombre" required></label>
+                <label>Apellido: <input type="text" name="apellido" required></label>
+                <label>Dirección: <input type="text" name="direccion" required></label>
+                <label>Teléfono: <input type="tel" name="telefono" required></label>
+                <label>Código Postal: <input type="text" name="codigo_postal" required></label>
+                <label>Fecha Nacimiento: <input type="date" name="fecha_nacimiento" required></label>
+                <button type="submit">Guardar Paciente</button>
+            </form>
+        </section>
+
+        <!-- Médicos -->
+        <section id="medicos">
+            <h2>👨‍⚕️ Registrar Médico</h2>
+            <form action="agregar_medico.php" method="POST">
+                <label>Nombre: <input type="text" name="nombre" required></label>
+                <label>Apellido: <input type="text" name="apellido" required></label>
+                <label>Dirección: <input type="text" name="direccion" required></label>
+                <label>Teléfono: <input type="tel" name="telefono" required></label>
+                <label>Código Postal: <input type="text" name="codigo_postal" required></label>
+                <label>Especialidad: <input type="text" name="especialidad" required></label>
+                <button type="submit">Guardar Médico</button>
+            </form>
+        </section>
+
+        <!-- Ingresos -->
+        <section id="ingresos">
+            <h2>🛏️ Registrar Ingreso del Paciente</h2>
+            <form action="registrar_ingreso.php" method="POST">
+                <label>Código Único: <input type="text" name="codigo_ingreso" placeholder="ING-001" required></label>
+                <label>Paciente:
+                    <select name="id_paciente" required>
+                        <?php include 'options_pacientes.php'; ?>
+                    </select>
+                </label>
+                <label>Médico:
+                    <select name="id_medico" required>
+                        <?php include 'options_medicos.php'; ?>
+                    </select>
+                </label>
+                <label>Habitación: <input type="text" name="habitacion" required></label>
+                <label>Cama: <input type="text" name="cama" required></label>
+                <label>Fecha Ingreso: <input type="datetime-local" name="fecha_ingreso" required></label>
+                <label>Diagnóstico: <textarea name="diagnostico"></textarea></label>
+                <button type="submit">Registrar Ingreso</button>
+            </form>
+        </section>
+
+        <!-- Citas de Seguimiento -->
+        <section id="citas">
+            <h2>📅 Agendar Cita de Revisión</h2>
+            <form action="agendar_cita.php" method="POST">
+                <label>Ingreso (Paciente):
+                    <select name="id_ingreso" id="id_ingreso" required onchange="cargarFechaAlta()">
+                        <option value="">Selecciona un ingreso</option>
+                        <?php include 'options_ingresos.php'; ?>
+                    </select>
+                </label>
+                <label>Fecha de Alta: 
+                    <span id="fecha_alta_display" style="color: #0056b3; font-weight: bold;">-</span>
+                </label>
+                <label>Fecha Cita (posterior a alta):
+                    <input type="datetime-local" name="fecha_cita" id="fecha_cita" required>
+                </label>
+                <label>Motivo: <textarea name="motivo"></textarea></label>
+                <button type="submit">Agendar Cita</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Clínica San Pedro - Sistema de Gestión Médica Informalizada</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
